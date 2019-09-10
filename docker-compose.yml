@@ -1,0 +1,35 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: laravel-docker
+    ports:
+      - 8080:80
+    volumes:
+      - .:/srv/app
+    links:
+      - mysql
+      - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: homeschooling
+      DB_USERNAME: homeschooling
+      DB_PASSWORD: homeschooling
+      REDIS_HOST: redis
+      SESSION_DRIVER: redis
+      CACHE_DRIVER: redis
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: homeschooling
+      MYSQL_USER: homeschooling
+      MYSQL_PASSWORD: homeschooling
+      MYSQL_ROOT_PASSWORD: homeschooling
+  redis:
+    image: redis:4.0-alpine
+    ports:
+      - 16379:6379
