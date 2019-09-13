@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('/serie/novo', 'Serie\SerieController');
+Route::resource('serie/serie', 'Serie\SerieController');
 
 Route::get('/', 'HomeController@index');
 
@@ -21,4 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/serie', 'Serie\\SerieController@index')->name('serie');
     Route::get('/serie/novo', 'Serie\\SerieController@create')->name('serie/novo');
+    Route::get('/serie/editar/{idSerie}', 'Serie\\SerieController@edit')->name('serie/editar');
+    Route::put('/serie/atualizar/{idSerie}', 'Serie\\SerieController@update')->name('serie/atualizar');
 });

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Serie extends Model
 {
-    protected $fillable = [
-        'nmSerie',
-    ];
+    protected $primaryKey = 'idSerie';
+    protected $fillable = ['nmSerie'];
 }

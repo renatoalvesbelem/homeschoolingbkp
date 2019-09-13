@@ -69,12 +69,15 @@ class SerieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idSerie)
     {
-        //
+        $serie = $this->serie->find($idSerie);
+
+        return view('serie.cadastrarserie',compact('serie'));
+
     }
 
     /**
@@ -84,9 +87,15 @@ class SerieController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SerieFormRequest $request, $id)
     {
-        //
+
+        $dataForm = $request->except('_token');
+        $update = $this->serie->find($id)->update($dataForm);
+        if ($update)
+            return redirect()->route('serie.index');
+        else
+            return redirect()->route('serie.edit', $id)->with(['errors' => 'Falha ao deletar']);
     }
 
     /**

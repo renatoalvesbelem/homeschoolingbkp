@@ -8,7 +8,12 @@
             @endforeach
         </div>
     @endif
-    {!! Form::open(['action' => 'Serie\SerieController@store']) !!}
+
+    @if(isset($serie))
+        {!! Form::model($serie, ['action' => ['Serie\SerieController@update', $serie->idSerie],  'class' => 'form', 'method'=>'PUT']) !!}
+    @else
+        {!! Form::open(['action' => 'Serie\SerieController@store']) !!}
+    @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -18,7 +23,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::text('nmSerie', null, ['class' => 'form-control', 'placeholder'=>'Digite o nome da Série']) !!}
+                                {!! Form::text('nmSerie', old('name', isset($serie) ? $serie->nmSerie : null), ['class' => 'form-control', 'placeholder'=>'Digite o nome da Série']) !!}
                             </div>
                         </div>
 
