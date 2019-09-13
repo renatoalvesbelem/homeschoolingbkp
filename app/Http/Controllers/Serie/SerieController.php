@@ -18,11 +18,12 @@ class SerieController extends Controller
 
     public function __construct(Serie $serie)
     {
+        $this->middleware('auth');
         $this->serie = $serie;
     }
 
     public function index()
-    {   $series = $this->serie->paginate(10);
+    {   $series = $this->serie->orderBy('nmSerie')->paginate(10);
         return view('serie.serie', compact('series'));
     }
 

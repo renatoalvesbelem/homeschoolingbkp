@@ -61,7 +61,7 @@
                                 <a class="dropdown-item" href="{{ route('serie') }}">
                                     {{ __('Listar') }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('novo.create') }}">
+                                <a class="dropdown-item" href="{{ route('serie/novo') }}">
                                     {{ __('Cadastrar') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

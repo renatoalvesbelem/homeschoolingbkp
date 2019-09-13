@@ -20,5 +20,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/serie', 'Serie\\SerieController@index')->name('serie');
-    Route::get('/serie/novo', 'Serie\\SerieController@create');
+    Route::get('/serie/novo', 'Serie\\SerieController@create')->name('serie/novo');
 });
