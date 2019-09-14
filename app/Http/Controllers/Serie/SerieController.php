@@ -23,7 +23,8 @@ class SerieController extends Controller
     }
 
     public function index()
-    {   $series = $this->serie->orderBy('nmSerie')->paginate(10);
+    {
+        $series = $this->serie->orderBy('nmSerie')->paginate(10);
         return view('serie.serie', compact('series'));
     }
 
@@ -76,7 +77,7 @@ class SerieController extends Controller
     {
         $serie = $this->serie->find($idSerie);
 
-        return view('serie.cadastrarserie',compact('serie'));
+        return view('serie.cadastrarserie', compact('serie'));
 
     }
 
@@ -89,23 +90,25 @@ class SerieController extends Controller
      */
     public function update(SerieFormRequest $request, $id)
     {
-
         $dataForm = $request->except('_token');
-        $update = $this->serie->find($id)->update($dataForm);
-        if ($update)
-            return redirect()->route('serie.index');
-        else
-            return redirect()->route('serie.edit', $id)->with(['errors' => 'Falha ao deletar']);
+        $serie = $this->serie->find($id);
+        $update = $serie->update($dataForm);
+        if ($update) {
+            return redirect()->route('serie.index')->withSuccess("Série '$serie->nmSerie' alterada com sucesso.");
+        } else
+            return redirect()->route('serie.edit', $id)->withErrors("Falha ao alterar a série.");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        $serie = $this->serie->find($id);
+        $delete = $serie->delete();
+        if ($delete)
+            return redirect()->route('serie.index')->withSuccess("Série '$serie->nmSerie' deletada com sucesso.");
+        else
+            return redirect()->route('serie.index')->withErrors("Falha ao deletar a série '$serie->nmSerie'");
+
+
     }
 }

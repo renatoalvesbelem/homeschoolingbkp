@@ -23,4 +23,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/serie/novo', 'Serie\\SerieController@create')->name('serie/novo');
     Route::get('/serie/editar/{idSerie}', 'Serie\\SerieController@edit')->name('serie/editar');
     Route::put('/serie/atualizar/{idSerie}', 'Serie\\SerieController@update')->name('serie/atualizar');
+    Route::get('/serie/deletar/{idSerie}', 'Serie\\SerieController@destroy')->name('serie/deletar');
 });
