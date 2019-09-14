@@ -56,7 +56,6 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Série<span class="caret"></span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('serie') }}">
                                     {{ __('Listar') }}
@@ -64,10 +63,6 @@
                                 <a class="dropdown-item" href="{{ route('serie/novo') }}">
                                     {{ __('Cadastrar') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
                             </div>
                         </li>
 
@@ -78,16 +73,12 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}">
+                                <a class="dropdown-item" href="{{ route('disciplina') }}">
                                     {{ __('Listar') }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('logout') }}">
+                                <a class="dropdown-item" href="{{ route('disciplina/novo') }}">
                                     {{ __('Cadastrar') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
                             </div>
                         </li>
 

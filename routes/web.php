@@ -11,6 +11,7 @@
 |
 */
 Route::resource('serie/serie', 'Serie\SerieController');
+Route::resource('disciplina/disciplina', 'Disciplina\DisciplinaController');
 
 Route::get('/', 'HomeController@index');
 
@@ -24,4 +25,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/serie/editar/{idSerie}', 'Serie\\SerieController@edit')->name('serie/editar');
     Route::put('/serie/atualizar/{idSerie}', 'Serie\\SerieController@update')->name('serie/atualizar');
     Route::get('/serie/deletar/{idSerie}', 'Serie\\SerieController@destroy')->name('serie/deletar');
+
+    Route::get('/disciplina', 'Disciplina\\DisciplinaController@index')->name('disciplina');
+    Route::get('/disciplina/novo', 'Disciplina\\DisciplinaController@create')->name('disciplina/novo');
+    Route::get('/disciplina/editar/{idDisciplina}', 'Disciplina\\DisciplinaController@edit')->name('disciplina/editar');
+    Route::put('/disciplina/atualizar/{idDisciplina}', 'Disciplina\\DisciplinaController@update')->name('disciplina/atualizar');
+    Route::get('/disciplina/deletar/{idDisciplina}', 'Disciplina\\DisciplinaController@destroy')->name('disciplina/deletar');
 });

@@ -78,7 +78,6 @@ class SerieController extends Controller
         $serie = $this->serie->find($idSerie);
 
         return view('serie.cadastrarserie', compact('serie'));
-
     }
 
     /**
@@ -99,7 +98,6 @@ class SerieController extends Controller
             return redirect()->route('serie.edit', $id)->withErrors("Falha ao alterar a série.");
     }
 
-
     public function destroy($id)
     {
         $serie = $this->serie->find($id);
@@ -108,7 +106,5 @@ class SerieController extends Controller
             return redirect()->route('serie.index')->withSuccess("Série '$serie->nmSerie' deletada com sucesso.");
         else
             return redirect()->route('serie.index')->withErrors("Falha ao deletar a série '$serie->nmSerie'");
-
-
     }
 }

@@ -20,19 +20,19 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($series as $serie)
+        @foreach($disciplinas as $disciplina)
             <tr>
                 <td></td>
-                <td>{{$serie->nmSerie}}</td>
+                <td>{{$disciplina->nmDisciplina}}</td>
                 <td>
-                    <a href="{{ route('serie/editar',$serie->idSerie) }}"><span>Editar</span></a>
-                    <a href="{{ route('serie/deletar',$serie->idSerie) }}"
-                       onclick="getConfirmation('{{$serie->nmSerie}}')"><span>Excluir</span></a>
+                    <a href="{{ route('disciplina/editar',$disciplina->idDisciplina)}}"><span>Editar</span></a>
+                    <a href="{{ route('disciplina/deletar',$disciplina->idDisciplina)}}"
+                       onclick="getConfirmation('{{$disciplina->nmDisciplina}}')"><span>Excluir</span></a>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
     <hr>
-    <div class="row justify-content-center align-items-center mt-4">{!! $series ->links() !!}</div>
+    <div class="row justify-content-center align-items-center mt-4">{!! $disciplinas ->links() !!}</div>
 @endsection
