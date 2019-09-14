@@ -29,7 +29,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8">
-                                {!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit(isset($serie)?'Alterar':'Salvar', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
                     </div>
