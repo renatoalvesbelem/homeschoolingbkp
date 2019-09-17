@@ -31,4 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/disciplina/editar/{idDisciplina}', 'Disciplina\\DisciplinaController@edit')->name('disciplina/editar');
     Route::put('/disciplina/atualizar/{idDisciplina}', 'Disciplina\\DisciplinaController@update')->name('disciplina/atualizar');
     Route::get('/disciplina/deletar/{idDisciplina}', 'Disciplina\\DisciplinaController@destroy')->name('disciplina/deletar');
+
+    Route::get('/questao', 'Questao\\QuestaoController@index')->name('disciplina');
+    Route::get('/questao/novo', 'Questao\\QuestaoController@create')->name('questao/novo');
+    Route::get('/questao/editar/{idQuestao}', 'Questao\\QuestaoController@edit')->name('questao/editar');
+    Route::put('/questao/atualizar/{idQuestao}', 'Questao\\QuestaoController@update')->name('questao/atualizar');
+    Route::get('/questao/deletar/{idQuestao}', 'Questao\\QuestaoController@destroy')->name('questao/deletar');
 });

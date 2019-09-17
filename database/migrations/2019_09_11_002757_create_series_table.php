@@ -14,7 +14,7 @@ class CreateSeriesTable extends Migration
     public function up()
     {
         Schema::create('series', function (Blueprint $table) {
-            $table->bigIncrements('idSerie');
+            $table->integer('idSerie')->autoIncrement();
             $table->string('nmSerie',255);
             $table->timestamps();
         });
