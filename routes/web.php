@@ -12,6 +12,7 @@
 */
 Route::resource('serie/serie', 'Serie\SerieController');
 Route::resource('disciplina/disciplina', 'Disciplina\DisciplinaController');
+Route::resource('questao/questao', 'Questao\QuestaoController');
 
 Route::get('/', 'HomeController@index');
 

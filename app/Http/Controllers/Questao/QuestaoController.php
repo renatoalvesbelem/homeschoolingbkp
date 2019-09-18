@@ -24,7 +24,7 @@ class QuestaoController extends Controller
      */
     public function create()
     {
-        //
+      return view('questao.cadastrarquestao');
     }
 
     /**
@@ -35,7 +35,7 @@ class QuestaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request ->all();
     }
 
     /**
@@ -69,7 +69,7 @@ class QuestaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return '';
     }
 
     /**
