@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Questao;
 
+use App\Model\Disciplina;
+use App\Model\Opcao;
+use App\Model\Questao;
+use App\Model\Serie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,6 +16,12 @@ class QuestaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(Questao $questao)
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         //
@@ -24,24 +34,39 @@ class QuestaoController extends Controller
      */
     public function create()
     {
-      return view('questao.cadastrarquestao');
+        $series = Serie::pluck('nmSerie', 'idSerie');
+        $disciplinas = Disciplina::pluck('nmDisciplina', 'idDisciplina');
+        return view('questao.cadastrarquestao', compact('series', 'disciplinas'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        return $request ->all();
+        $questao = new Questao;
+        $questao->enunciadoQuestao = $request['enunciadoQuestao'];
+        $questao->respostaQuestao = $request['respostaQuestao'];
+        $questao->idSerie = $request['idSerie'];
+        $questao->idDisciplina = $request['idDisciplina'];
+        $questao->save();
+        $opcao = new Opcao;
+        $opcao->enunciadoOpcao = 'Teste';
+        $opcao2 = new Opcao;
+        $opcao2->enunciadoOpcao = 'Teste2';
+
+        $questao->opcao()->saveMany([$opcao,$opcao2]);
+
+        return $questao->idQuestao;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,7 +77,7 @@ class QuestaoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -63,8 +88,8 @@ class QuestaoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +100,7 @@ class QuestaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

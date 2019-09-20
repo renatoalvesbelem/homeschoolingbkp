@@ -19,19 +19,25 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::select('nmSerie', [1=>'Primeira', 2=>'Segunda'] , null , ['class' => 'form-control', 'placeholder'=>'Selecione a Série']) !!}
+                                {!! Form::select('idSerie', $series, null , ['class' => 'form-control', 'placeholder'=>'Selecione a Série']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::select('nmDisciplina', [1=>'Física', 2=>'Quimica'] , null , ['class' => 'form-control',  'placeholder'=>'Selecione a Disciplina']) !!}
+                                {!! Form::select('idDisciplina',$disciplinas , null , ['class' => 'form-control',  'placeholder'=>'Selecione a Disciplina']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::textarea('enunciadoQuestao',null, ['class' => 'form-control', 'placeholder'=>'Digite o enuncaido da questão', 'rows'=>'4']) !!}
+                                {!! Form::textarea('enunciadoQuestao',null, ['class' => 'form-control', 'placeholder'=>'Digite o enunciado da questão', 'rows'=>'4']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                {!! Form::textarea('respostaQuestao',null, ['class' => 'form-control', 'placeholder'=>'Digite a resposta da questão', 'rows'=>'4']) !!}
                             </div>
                         </div>
 
