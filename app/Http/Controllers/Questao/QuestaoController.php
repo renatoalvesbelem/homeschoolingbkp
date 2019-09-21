@@ -47,20 +47,26 @@ class QuestaoController extends Controller
      */
     public function store(Request $request)
     {
-        $questao = new Questao;
-        $questao->enunciadoQuestao = $request['enunciadoQuestao'];
-        $questao->respostaQuestao = $request['respostaQuestao'];
-        $questao->idSerie = $request['idSerie'];
-        $questao->idDisciplina = $request['idDisciplina'];
+        $questao = new Questao(
+            [
+                'enunciadoQuestao' => $request['enunciadoQuestao'],
+                'respostaQuestao' => $request['respostaQuestao'],
+                'idSerie' => $request['idSerie'],
+                'idDisciplina' => $request['idDisciplina'],
+            ]);
         $questao->save();
-        $opcao = new Opcao;
-        $opcao->enunciadoOpcao = 'Teste';
-        $opcao2 = new Opcao;
-        $opcao2->enunciadoOpcao = 'Teste2';
 
-        $questao->opcao()->saveMany([$opcao,$opcao2]);
+        for ($i = 0; $i < count($request['opcao']); $i++) {
+            $opcoes[] = new Opcao(
+                [
+                    'enunciadoOpcao' => $request['opcao'][$i],
+                    'corretaOpcao' => $request['opcaoCorreta'][$i]
+                ]);
+        }
 
-        return $questao->idQuestao;
+        $questao->opcao()->saveMany($opcoes);
+
+        return $opcoes;
     }
 
     /**

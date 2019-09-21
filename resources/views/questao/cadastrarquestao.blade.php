@@ -62,7 +62,7 @@
         function addTextArea() {
             var opcao = $("#opcoes");
             opcao.append("<div class='form-group row'><div class='col-md-12'><textarea name='opcao[]' class='form-control' placeholder='Digite a opção' rows='4'>");
-            opcao.append("<div class='form-group row mb-0'>  <div class='col-md-8'> <input name='opcaoCorreta[]' type='checkbox'> Opção correta?");
+            opcao.append("<div class='form-group row mb-0'>  <div class='col-md-8'> <input type='hidden' name='opcaoCorreta[]' value='0'><input type='checkbox' onclick='this.previousSibling.value=1-this.previousSibling.value'> Opção correta?");
         }
     </script>
     {!! Form::close() !!}
