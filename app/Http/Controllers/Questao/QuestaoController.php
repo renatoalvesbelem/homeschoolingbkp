@@ -8,6 +8,7 @@ use App\Model\Questao;
 use App\Model\Serie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class QuestaoController extends Controller
 {
@@ -54,7 +55,6 @@ class QuestaoController extends Controller
                 'idSerie' => $request['idSerie'],
                 'idDisciplina' => $request['idDisciplina'],
             ]);
-        $questao->save();
 
         for ($i = 0; $i < count($request['opcao']); $i++) {
             $opcoes[] = new Opcao(
@@ -63,9 +63,14 @@ class QuestaoController extends Controller
                     'corretaOpcao' => $request['opcaoCorreta'][$i]
                 ]);
         }
-
-        $questao->opcao()->saveMany($opcoes);
-
+        DB::beginTransaction();
+        try {
+            $questao->save();
+            $questao->opcao()->saveMany($opcoes);
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+        }
         return $opcoes;
     }
 
