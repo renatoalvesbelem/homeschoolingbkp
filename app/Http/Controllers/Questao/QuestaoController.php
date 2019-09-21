@@ -17,15 +17,17 @@ class QuestaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    private $questao;
     public function __construct(Questao $questao)
     {
         $this->middleware('auth');
+        $this->questao=$questao;
     }
 
     public function index()
     {
-        //
+        $questaos = $this->questao->orderby('idQuestao')->paginate(10);
+        return view('questao.questao', compact('questaos'));
     }
 
     /**
