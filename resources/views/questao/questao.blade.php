@@ -27,7 +27,7 @@
                 <td>
                     <a href="{{ route('questao/editar',$questao->idQuestao)}}"><span>Editar</span></a>
                     <a href="{{ route('questao/deletar',$questao->idQuestao)}}"
-                       onclick="getConfirmation('{{$questao->enunciadoQuestao}}')"><span>Excluir</span></a>
+                       onclick="getConfirmation('{{$questao->idQuestao}}')"><span>Excluir</span></a>
                 </td>
             </tr>
         @endforeach

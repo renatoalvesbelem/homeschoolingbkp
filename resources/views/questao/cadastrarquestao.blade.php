@@ -19,25 +19,25 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::select('idSerie', $series, null , ['class' => 'form-control', 'placeholder'=>'Selecione a Série']) !!}
+                                {!! Form::select('idSerie', $series,  old('idSerie', isset($questao) ? $questao->idSerie: null) , ['class' => 'form-control', 'placeholder'=>'Selecione a Série']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::select('idDisciplina',$disciplinas , null , ['class' => 'form-control',  'placeholder'=>'Selecione a Disciplina']) !!}
+                                {!! Form::select('idDisciplina',$disciplinas , old('idSerie', isset($questao) ? $questao->idDisciplina: null) , ['class' => 'form-control',  'placeholder'=>'Selecione a Disciplina']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::textarea('enunciadoQuestao',null, ['class' => 'form-control', 'placeholder'=>'Digite o enunciado da questão', 'rows'=>'4']) !!}
+                                {!! Form::textarea('enunciadoQuestao', old('enunciadoQuestao', isset($questao) ? $questao->enunciadoQuestao: null), ['class' => 'form-control', 'placeholder'=>'Digite o enunciado da questão', 'rows'=>'4']) !!}
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                {!! Form::textarea('respostaQuestao',null, ['class' => 'form-control', 'placeholder'=>'Digite a resposta da questão', 'rows'=>'4']) !!}
+                                {!! Form::textarea('respostaQuestao',old('respostaQuestao', isset($questao) ? $questao->respostaQuestao: null), ['class' => 'form-control', 'placeholder'=>'Digite a resposta da questão', 'rows'=>'4']) !!}
                             </div>
                         </div>
 
@@ -45,7 +45,7 @@
                         <hr>
                         <div id="opcoes"></div>
                         <div class="form-group row">
-                            <a href="javascript:addTextArea()">Adicionar</a>
+                            <a href="javascript:addTextArea()" id="adicionar">Adicionar</a>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8">

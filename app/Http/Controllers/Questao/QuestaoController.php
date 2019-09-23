@@ -18,10 +18,11 @@ class QuestaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $questao;
+
     public function __construct(Questao $questao)
     {
         $this->middleware('auth');
-        $this->questao=$questao;
+        $this->questao = $questao;
     }
 
     public function index()
@@ -95,7 +96,11 @@ class QuestaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $series = Serie::pluck('nmSerie', 'idSerie');
+        $disciplinas = Disciplina::pluck('nmDisciplina', 'idDisciplina');
+        $questao = questao::find($id);
+        $questao->opcao;
+        return view('questao.cadastrarquestao', compact('questao','series','disciplinas')) ;
     }
 
     /**
@@ -118,6 +123,11 @@ class QuestaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $questao = $this->questao::find($id);
+        $delete = $questao->delete();
+        if ($delete)
+            return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' deletada com sucesso.");
+        else
+            return redirect()->route('questao.index')->withErrors("Falha ao deletar a questão '$questao->idQuestao'");
     }
 }
