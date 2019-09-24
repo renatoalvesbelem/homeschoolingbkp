@@ -59,20 +59,24 @@
     </div>
 
     <script type="application/javascript">
-        function addTextArea(enunciadoQuestao = '', respostaQuestao) {
+        function addTextArea(enunciadoQuestao = '', respostaQuestao=0) {
             var opcao = $("#opcoes");
+            const selected = respostaQuestao === 1 ? 'selected' : '';
             opcao.append(`<div class='form-group row'><div class='col-md-12'><textarea name='opcao[]' class='form-control' placeholder='Digite a opção' rows='4'>${enunciadoQuestao}`);
-            opcao.append(`<div class='form-group row mb-0'><div class='col-md-8'> <input type='hidden' name='opcaoCorreta[]' value=','><input type='checkbox' onclick='this.previousSibling.value=1-this.previousSibling.value'> Opção correta?`);
+            opcao.append(`<div class='form-group row'><div class='col-md-8'> <select name='opcaoCorreta[]'><option value='0' )' >Falso</option><option value='1'  ${selected}>Verdadeiro</option>`);
+            // opcao.append(`<div class='form-group row mb-0'><div class='col-md-8'> <input type='hidden' name='opcaoCorreta[]' value=','><input type='checkbox' onclick='this.previousSibling.value=1-this.previousSibling.value'> Opção correta?`);
         }
     </script>
+
+    @if(isset($questao) )
     <script>
         window.onload = function () {
             @foreach($questao->opcao as $opcaoE)
-            {{$opcaoE->idOpcao}}
-            addTextArea(`{{$opcaoE->enunciadoOpcao}}`);
+            addTextArea(`{{$opcaoE->enunciadoOpcao}}`, {{$opcaoE->corretaOpcao}});
             @endforeach
         }
 
     </script>
+    @endif
     {!! Form::close() !!}
 @endsection

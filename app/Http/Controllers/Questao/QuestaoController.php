@@ -74,7 +74,7 @@ class QuestaoController extends Controller
         } catch (\Exception $ex) {
             DB::rollback();
         }
-        return $opcoes;
+        return redirect()->route('questao');
     }
 
     /**
@@ -124,6 +124,8 @@ class QuestaoController extends Controller
     public function destroy($id)
     {
         $questao = $this->questao::find($id);
+        $opcao = Opcao::where('idQuestao',$id);
+        $opcao->delete();
         $delete = $questao->delete();
         if ($delete)
             return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' deletada com sucesso.");
