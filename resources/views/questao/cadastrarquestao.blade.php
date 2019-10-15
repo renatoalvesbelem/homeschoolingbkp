@@ -9,7 +9,12 @@
         </div>
     @endif
 
-    {!! Form::open(['action' => 'Questao\QuestaoController@store']) !!}
+
+    @if(isset($questao))
+        {!! Form::model($questao, ['action' => ['Questao\QuestaoController@update', $questao->idQuestao],  'class' => 'form', 'method'=>'PUT']) !!}
+    @else
+        {!! Form::open(['action' => 'Questao\QuestaoController@store']) !!}
+    @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">

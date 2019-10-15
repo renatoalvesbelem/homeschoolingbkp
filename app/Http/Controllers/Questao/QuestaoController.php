@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Questao;
 
+use App\Http\Requests\QuestaoFormRequest;
 use App\Model\Disciplina;
 use App\Model\Opcao;
 use App\Model\Questao;
@@ -100,6 +101,7 @@ class QuestaoController extends Controller
         $disciplinas = Disciplina::pluck('nmDisciplina', 'idDisciplina');
         $questao = questao::find($id);
         $questao->opcao;
+
         return view('questao.cadastrarquestao', compact('questao','series','disciplinas')) ;
     }
 
@@ -110,9 +112,23 @@ class QuestaoController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestaoFormRequest $request, $id)
     {
-        return '';
+        $dataForm = $request->except('_token');
+        $questao = $this->questao->find($id);
+        $questao->update($dataForm);
+        $opcao = Opcao::where('idQuestao',$id);
+        $opcao->delete();
+        for ($i = 0; $i < count($request['opcao']); $i++) {
+            $opcoes[] = new Opcao(
+                [
+                    'enunciadoOpcao' => $request['opcao'][$i],
+                    'corretaOpcao' => $request['opcaoCorreta'][$i]
+                ]);
+        }
+        $questao->opcao()->saveMany($opcoes);
+
+        return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' atualizado com sucesso.");
     }
 
     /**
