@@ -32,6 +32,8 @@ class SerieFormRequest extends FormRequest
     {
         return [
             'nmSerie.required' => 'O campo Série é de preenchimento obrigatório',
+            'nmSerie.min' => 'A quantidade de caracteres permitido é no mínimo 3 e máximo 100',
+            'nmSerie.max' => 'A quantidade de caracteres permitido é no mínimo 3 e máximo 100'
         ];
     }
 }

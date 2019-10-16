@@ -32,6 +32,8 @@ class DisciplinaFormRequest extends FormRequest
     {
         return [
             'nmDisciplina.required' => 'O campo Disciplina é de preenchimento obrigatório',
+            'nmDisciplina.min' => 'A quantidade de caracteres permitido é no mínimo 3 e máximo 100',
+            'nmDisciplina.max' => 'A quantidade de caracteres permitido é no mínimo 3 e máximo 100'
         ];
     }
 }

@@ -24,7 +24,20 @@ class QuestaoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idSerie' => 'required',
+            'idDisciplina' => 'required',
+            'enunciadoQuestao' => 'required',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'idSerie.required' => 'Série deve ser selecionada',
+            'idDisciplina.required' => 'Disciplina deve ser selecionada',
+            'enunciadoQuestao.required' => 'Enunciado da questão deve ser informado',
+
         ];
     }
 }
