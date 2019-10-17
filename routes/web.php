@@ -38,4 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/questao/editar/{idQuestao}', 'Questao\\QuestaoController@edit')->name('questao/editar');
     Route::put('/questao/atualizar/{idQuestao}', 'Questao\\QuestaoController@update')->name('questao/atualizar');
     Route::get('/questao/deletar/{idQuestao}', 'Questao\\QuestaoController@destroy')->name('questao/deletar');
+    Route::get('/questao/relatorio', 'Questao\\QuestaoController@relatorio')->name('questao/relatorio');
+    Route::post('/questao/gerarRelatorio', 'Questao\\QuestaoController@gerarRelatorio')->name('questao/gerarRelatorio');
 });

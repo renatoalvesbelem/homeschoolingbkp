@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Questao;
 
 use App\Http\Requests\QuestaoFormRequest;
+use App\Http\Requests\RealatorioQuestaoFormRequest;
 use App\Model\Disciplina;
 use App\Model\Opcao;
 use App\Model\Questao;
@@ -10,6 +11,7 @@ use App\Model\Serie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use function MongoDB\BSON\toJSON;
 
 class QuestaoController extends Controller
 {
@@ -147,5 +149,18 @@ class QuestaoController extends Controller
             return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' deletada com sucesso.");
         else
             return redirect()->route('questao.index')->withErrors("Falha ao deletar a questão '$questao->idQuestao'");
+    }
+
+    public function relatorio(){
+        $series = Serie::pluck('nmSerie', 'idSerie');
+        $disciplinas = Disciplina::pluck('nmDisciplina', 'idDisciplina');
+        return view('questao.relatorioquestao', compact('series', 'disciplinas'));
+    }
+
+    public function gerarRelatorio(RealatorioQuestaoFormRequest $request){
+
+        $questaos = $this->questao::where([['idSerie',$request['idSerie'],['idQuestao',$request['idQuestao']]]])->orderby('idQuestao');
+        return '$questaos';
+
     }
 }
