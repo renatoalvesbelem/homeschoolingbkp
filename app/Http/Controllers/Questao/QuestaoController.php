@@ -104,7 +104,7 @@ class QuestaoController extends Controller
         $questao = questao::find($id);
         $questao->opcao;
 
-        return view('questao.cadastrarquestao', compact('questao','series','disciplinas')) ;
+        return view('questao.cadastrarquestao', compact('questao', 'series', 'disciplinas'));
     }
 
     /**
@@ -119,7 +119,7 @@ class QuestaoController extends Controller
         $dataForm = $request->except('_token');
         $questao = $this->questao->find($id);
         $questao->update($dataForm);
-        $opcao = Opcao::where('idQuestao',$id);
+        $opcao = Opcao::where('idQuestao', $id);
         $opcao->delete();
         for ($i = 0; $i < count($request['opcao']); $i++) {
             $opcoes[] = new Opcao(
@@ -142,7 +142,7 @@ class QuestaoController extends Controller
     public function destroy($id)
     {
         $questao = $this->questao::find($id);
-        $opcao = Opcao::where('idQuestao',$id);
+        $opcao = Opcao::where('idQuestao', $id);
         $opcao->delete();
         $delete = $questao->delete();
         if ($delete)
@@ -151,16 +151,27 @@ class QuestaoController extends Controller
             return redirect()->route('questao.index')->withErrors("Falha ao deletar a questão '$questao->idQuestao'");
     }
 
-    public function relatorio(){
+    public function relatorio()
+    {
         $series = Serie::pluck('nmSerie', 'idSerie');
         $disciplinas = Disciplina::pluck('nmDisciplina', 'idDisciplina');
         return view('questao.relatorioquestao', compact('series', 'disciplinas'));
     }
 
-    public function gerarRelatorio(RealatorioQuestaoFormRequest $request){
+    public function gerarRelatorio(Request $request)
+    {
+        $series = Serie::pluck('nmSerie', 'idSerie');
+        $disciplinas = Disciplina::pluck('nmDisciplina', 'idDisciplina');
 
-        $questaos = $this->questao::where([['idSerie',$request['idSerie'],['idQuestao',$request['idQuestao']]]])->orderby('idQuestao');
-        return '$questaos';
+        $questoes = $this->questao->with('opcao');
+        if ($request['idSerie']) {
+            $questoes->where(['idSerie' => $request['idSerie']]);
+        }
+        if ($request['idDisciplina']) {
+            $questoes->where(['idDisciplina' => $request['idDisciplina']]);
+        }
+        $questoes = $questoes->get();
 
+        return view('questao.relatorioquestao', compact('questoes', 'series', 'disciplinas'));
     }
 }
