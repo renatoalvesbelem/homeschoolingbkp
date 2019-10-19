@@ -40,4 +40,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/questao/deletar/{idQuestao}', 'Questao\\QuestaoController@destroy')->name('questao/deletar');
     Route::get('/questao/relatorio', 'Questao\\QuestaoController@relatorio')->name('questao/relatorio');
     Route::post('/questao/gerarRelatorio', 'Questao\\QuestaoController@gerarRelatorio')->name('questao/gerarRelatorio');
+    Route::post('/questao/imprimirProva', 'Questao\\QuestaoController@imprimirProva')->name('questao/imprimirProva');
 });

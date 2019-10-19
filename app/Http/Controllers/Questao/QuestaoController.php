@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Questao;
 
 use App\Http\Requests\QuestaoFormRequest;
-use App\Http\Requests\RealatorioQuestaoFormRequest;
 use App\Model\Disciplina;
 use App\Model\Opcao;
 use App\Model\Questao;
@@ -11,6 +10,7 @@ use App\Model\Serie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use function MongoDB\BSON\toJSON;
 
 class QuestaoController extends Controller
@@ -173,5 +173,20 @@ class QuestaoController extends Controller
         $questoes = $questoes->get();
 
         return view('questao.relatorioquestao', compact('questoes', 'series', 'disciplinas'));
+    }
+
+    public function imprimirProva(Request $request)
+    {
+        $questoes = $this->questao->with('opcao');
+        if ($request['idSerie']) {
+            $questoes->where(['idSerie' => $request['idSerie']]);
+        }
+        if ($request['idDisciplina']) {
+            $questoes->where(['idDisciplina' => $request['idDisciplina']]);
+        }
+        $questoes = $questoes->get();
+
+        $pdf = PDF::loadView('questao.prova', compact('questoes'));
+        return $pdf->setPaper('a4')->setOptions(['isPhpEnabled'=> true])->stream('prova.pdf');
     }
 }
