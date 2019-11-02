@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    Você está logado
+                    <b>{{ Auth::user()->name }}</b> seja bem vindo!
+                        <br/>
+                        Futuramente eta área contera suas última atividades.
                 </div>
             </div>
         </div>
