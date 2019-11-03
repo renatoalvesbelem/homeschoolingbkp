@@ -72,12 +72,16 @@ class QuestaoController extends Controller
         DB::beginTransaction();
         try {
             $questao->save();
-            $questao->opcao()->saveMany($opcoes);
+            if (count($request['opcao']) > 0) {
+                $questao->opcao()->saveMany($opcoes);
+            }
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
+            return redirect()->route('questao.index')->withErrors("Erro ao cadastrar questão.");
         }
-        return redirect()->route('questao');
+        return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' cadastrada com sucesso .");
+
     }
 
     /**
@@ -128,7 +132,9 @@ class QuestaoController extends Controller
                     'corretaOpcao' => $request['opcaoCorreta'][$i]
                 ]);
         }
-        $questao->opcao()->saveMany($opcoes);
+        if (count($request['opcao']) > 0) {
+            $questao->opcao()->saveMany($opcoes);
+        }
 
         return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' atualizado com sucesso.");
     }
@@ -187,6 +193,6 @@ class QuestaoController extends Controller
         $questoes = $questoes->get();
 
         $pdf = PDF::loadView('questao.prova', compact('questoes'));
-        return $pdf->setPaper('a4')->setOptions(['isPhpEnabled'=> true])->stream('prova.pdf');
+        return $pdf->setPaper('a4')->setOptions(['isPhpEnabled' => true])->stream('prova.pdf');
     }
 }

@@ -8,8 +8,8 @@
             @endforeach
         </div>
     @endif
-{{--    {!! Form::open(['action' => 'Questao\QuestaoController@gerarRelatorio','method'=>'POST']) !!}--}}
-        {!! Form::open(['method'=>'POST']) !!}
+    {{--    {!! Form::open(['action' => 'Questao\QuestaoController@gerarRelatorio','method'=>'POST']) !!}--}}
+    {!! Form::open(['method'=>'POST']) !!}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -31,7 +31,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8">
                                 {!! Form::submit('Listar Questões', ['formaction'=>'gerarRelatorio','class' => 'btn btn-primary', 'id'=>'enviar', 'disabled'=> 'disabled']) !!}
-                                {!! Form::submit('Imprimir Prova', ['formaction'=>'imprimirProva', 'class' => 'btn btn-primary', 'id'=>'imprimir', 'disabled'=> 'disabled']) !!}
+                                {!! Form::submit('Imprimir Prova', ['formaction'=>'imprimirProva', 'formtarget'=>'_blank', 'class' => 'btn btn-primary', 'id'=>'imprimir', 'disabled'=> 'disabled']) !!}
                             </div>
                         </div>
                     </div>
