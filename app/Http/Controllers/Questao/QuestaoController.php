@@ -78,9 +78,10 @@ class QuestaoController extends Controller
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            return redirect()->route('questao.index')->withSuccess("Houve um erro no cadastro da questão.");
+            return redirect()->route('questao.index')->withErrors("Erro ao cadastrar questão.");
         }
-        return redirect()->route('questao.index')->withErrors("Erro ao cadastrar questão.");
+        return redirect()->route('questao.index')->withSuccess("Questão '$questao->idQuestao' cadastrada com sucesso.");
+
     }
 
     /**
