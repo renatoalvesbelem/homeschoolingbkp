@@ -22,6 +22,7 @@ class QuestaoController extends Controller
      */
     private $questao;
 
+
     public function __construct(Questao $questao)
     {
         $this->middleware('auth');

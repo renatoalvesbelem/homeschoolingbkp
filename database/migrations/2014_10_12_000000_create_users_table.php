@@ -24,15 +24,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        DB::table('users')->insert(
-            array(
-                'name' => 'Renato',
-                'email' => 'renatoalvesbelem@gmail.com',
-                'active' => true,
-                'password' => '$2y$10$/fuljjRPX9higruhGTcZsOfU9DV9OpQyn6fHe8ldbs4zCxVhkfiAm'
-            )
-        );
     }
 
     /**
